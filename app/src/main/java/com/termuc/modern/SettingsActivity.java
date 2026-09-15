@@ -22,8 +22,8 @@ public class SettingsActivity extends AppCompatActivity {
         TextView title=text("Settings",20,Color.WHITE);title.setTypeface(null,1);top.addView(title,new LinearLayout.LayoutParams(0,-1,1));
         ScrollView scroll=new ScrollView(this);LinearLayout body=new LinearLayout(this);body.setOrientation(LinearLayout.VERTICAL);body.setPadding(dp(16),dp(16),dp(16),dp(28));scroll.addView(body);root.addView(scroll,new LinearLayout.LayoutParams(-1,0,1));
         addHeader(body,"EDITOR");
-        themeValue=text(Prefs.theme(this),15,0xFFD4D4D4);addRow(body,"Color Theme","15+ VS Code-inspired themes",themeValue,v->chooseTheme());
-        fontValue=text(Prefs.font(this),15,0xFFD4D4D4);addRow(body,"Editor Font","Bundled developer fonts",fontValue,v->chooseFont());
+        themeValue=text(Prefs.theme(this),15,0xFFD4D4D4);addRow(body,"Color Theme","15+ VS Code-inspired themes",Prefs.theme(this),v->chooseTheme());
+        fontValue=text(Prefs.font(this),15,0xFFD4D4D4);addRow(body,"Editor Font","Bundled developer fonts",Prefs.font(this),v->chooseFont());
         addRow(body,"Font Size",Prefs.size(this)+" sp","Tap to choose a size",v->chooseSize());
         LinearLayout wrapRow=new LinearLayout(this);wrapRow.setGravity(Gravity.CENTER_VERTICAL);wrapRow.setPadding(dp(14),dp(8),dp(10),dp(8));wrapRow.setBackground(round(0xFF252526,10));
         TextView wt=text("Word Wrap\nLong lines wrap inside the editor",15,0xFFD4D4D4);wrap=new Switch(this);wrap.setChecked(Prefs.wordWrap(this));wrap.setOnCheckedChangeListener((button,checked)->Prefs.wordWrap(this,checked));wrapRow.addView(wt,new LinearLayout.LayoutParams(0,dp(64),1));wrapRow.addView(wrap,new LinearLayout.LayoutParams(dp(60),dp(60)));body.addView(wrapRow,new LinearLayout.LayoutParams(-1,dp(82)));
