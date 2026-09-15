@@ -1,0 +1,18 @@
+Bundled developer fonts
+
+JetBrains Mono
+Copyright 2020 The JetBrains Mono Project Authors
+License: SIL Open Font License 1.1
+Source: https://github.com/JetBrains/JetBrainsMono
+
+Cascadia Code
+Copyright Microsoft Corporation
+License: SIL Open Font License 1.1
+
+Source Code Pro
+Copyright 2010, 2012 Adobe Systems Incorporated
+License: SIL Open Font License 1.1
+
+Roboto Mono
+Copyright 2015 The Roboto Mono Project Authors
+License: Apache License 2.0

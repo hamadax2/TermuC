@@ -100,6 +100,19 @@ public class TextEditor extends FreeScrollingTextField  {
 
     @Override
     public boolean onKeyShortcut(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_SPACE
+                && (event.getMetaState() & KeyEvent.META_CTRL_ON) != 0) {
+            int cursor = getCaretPosition();
+            int start = cursor;
+            while (start > 0) {
+                char c = hDoc.charAt(start - 1);
+                if (!(Character.isLetterOrDigit(c) || c == '_' || c == '.')) break;
+                start--;
+            }
+            mAutoCompletePanel._off = cursor - start;
+            mAutoCompletePanel.update(hDoc.subSequence(start, cursor));
+            return true;
+        }
         final int filteredMetaState = event.getMetaState() & ~KeyEvent.META_CTRL_MASK;
         if (KeyEvent.metaStateHasNoModifiers(filteredMetaState)) {
             switch (keyCode) {

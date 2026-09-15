@@ -56,11 +56,15 @@ TextEditor.OnEditedListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final MainActivity ma = (MainActivity)getActivity();
 		TextEditor editor = ma.newEditor();
-		if ("d".equals(Application.theme)
-            || "s".equals(Application.theme)
-            && ((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES)) {
-            editor.setColorScheme(ColorSchemeDark.getInstance());
+        String editorTheme = Application.theme;
+        // Legacy preferences are mapped to the new editor-theme IDs.
+        if ("d".equals(editorTheme)) editorTheme = "dark-plus";
+        else if ("l".equals(editorTheme)) editorTheme = "light-plus";
+        else if ("s".equals(editorTheme)) {
+            boolean night = (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+            editorTheme = night ? "dark-plus" : "light-plus";
         }
+        editor.setColorScheme(ColorSchemeVSCode.get(editorTheme));
         editor.setPureMode(Application.pure_mode);
 		DisplayMetrics dm = getResources().getDisplayMetrics();
 		editor.setTypeface(Application.typeface());
@@ -101,11 +105,13 @@ TextEditor.OnEditedListener {
                 HelperUtils.show(Toast.makeText(ma, getString(R.string.open_failed) + fnf.getMessage(), Toast.LENGTH_SHORT));
             }
         }
-		if ((type & TYPE_MASK) != TYPE_TXT) {
-			if (hasLsp() && "s".equals(Application.completion))
-				editor.setFormatter(this);
-			editor.setAutoComplete("l".equals(Application.completion));
-		}
+        if ((type & TYPE_MASK) != TYPE_TXT) {
+            if (hasLsp() && "s".equals(Application.completion))
+                editor.setFormatter(this);
+            // Always keep the built-in completion engine as a fallback.
+            // LSP completion can still appear on top of it when available.
+            editor.setAutoComplete(true);
+        }
 		lastModified = FileHelper.lastModified(fl);
 		return editor;
 	}

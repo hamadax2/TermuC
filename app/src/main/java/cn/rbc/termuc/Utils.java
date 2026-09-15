@@ -218,9 +218,18 @@ public class Utils {
     }
 
     public static void setNightMode(Context ctx, String thm) {
-        ctx.setTheme("s".equals(thm) ?R.style.AppThemeDayNight:
-                     "l".equals(thm) ?R.style.AppTheme:
-                     R.style.AppThemeDark);
+        // Editor themes also control the surrounding Android chrome.
+        // Keep the legacy d/l/s values compatible with older preferences.
+        boolean light = "l".equals(thm)
+                || "light-plus".equals(thm)
+                || "github-light".equals(thm)
+                || "solarized-light".equals(thm)
+                || "quiet-light".equals(thm)
+                || "hc-light".equals(thm);
+        if ("s".equals(thm))
+            ctx.setTheme(R.style.AppThemeDayNight);
+        else
+            ctx.setTheme(light ? R.style.AppTheme : R.style.AppThemeDark);
     }
 
     private static Intent newLabeled(String srcPkg, CharSequence title, String url) {

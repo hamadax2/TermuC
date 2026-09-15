@@ -12,7 +12,9 @@ public final class ColorSchemeVSCode extends ColorScheme {
     private final boolean dark;
 
     private ColorSchemeVSCode(String id) {
-        dark = !("light-plus".equals(id) || "github-light".equals(id) || "solarized-light".equals(id));
+        dark = !("light-plus".equals(id) || "github-light".equals(id)
+                || "solarized-light".equals(id) || "hc-light".equals(id)
+                || "quiet-light".equals(id));
         if ("light-plus".equals(id)) lightPlus();
         else if ("github-light".equals(id)) githubLight();
         else if ("solarized-light".equals(id)) solarizedLight();
@@ -25,6 +27,12 @@ public final class ColorSchemeVSCode extends ColorScheme {
         else if ("tokyo-night".equals(id)) tokyoNight();
         else if ("abyss".equals(id)) abyss();
         else if ("hc-dark".equals(id)) highContrast();
+        else if ("hc-light".equals(id)) highContrastLight();
+        else if ("quiet-light".equals(id)) quietLight();
+        else if ("kimbie-dark".equals(id)) kimbieDark();
+        else if ("red".equals(id)) red();
+        else if ("tomorrow-night-blue".equals(id)) tomorrowNightBlue();
+        else if ("cobalt2".equals(id)) cobalt2();
         else darkPlus();
     }
 
@@ -98,6 +106,31 @@ public final class ColorSchemeVSCode extends ColorScheme {
     private void highContrast() {
         base(0xFF000000,0xFFFFFFFF,0xFF3F3F3F,0x33000000);
         code(0xFFFFFF00,0xFF00FFFF,0xFFFFFFFF,0xFF00FF00,0xFFFFA000,0xFF7CFC00,0xFFFFFFFF,0xFFFF00FF,0xFF00FFFF);
+    }
+
+    private void highContrastLight() {
+        base(0xFFFFFFFF,0xFF000000,0xFFB3D7FF,0x18000000);
+        code(0xFF0000FF,0xFF006666,0xFF795E26,0xFF008000,0xFFA31515,0xFF008000,0xFF000000,0xFF800080,0xFF001080);
+    }
+    private void quietLight() {
+        base(0xFFF5F5F5,0xFF333333,0xFFADD6FF,0x16000000);
+        code(0xFFAA0D91,0xFF267F99,0xFF795E26,0xFF098658,0xFFA31515,0xFF008000,0xFF333333,0xFF795E26,0xFF001080);
+    }
+    private void kimbieDark() {
+        base(0xFF221A0F,0xFFD3AF86,0xFF4B3B25,0x20221A0F);
+        code(0xFF98676A,0xFF7ABF9A,0xFFD3AF86,0xFFD7AF87,0xFFD3AF86,0xFF9B8A6E,0xFFD3AF86,0xFFC88C8D,0xFF8AB7A3);
+    }
+    private void red() {
+        base(0xFF390000,0xFFFFCCCC,0xFF6E2020,0x22390000);
+        code(0xFFFF8080,0xFFFFB3B3,0xFFFFCCCC,0xFFFF9999,0xFFFFB3B3,0xFFCC6666,0xFFFFCCCC,0xFFFFCC80,0xFFFFE6E6);
+    }
+    private void tomorrowNightBlue() {
+        base(0xFF002451,0xFFFFFFFF,0xFF003F7D,0x22002451);
+        code(0xFFFF9DA4,0xFFFFC58A,0xFFFFFFFF,0xFFFFEEAD,0xFFFFD580,0xFF7285B7,0xFFBBDAFF,0xFFFFD580,0xFF99FFFF);
+    }
+    private void cobalt2() {
+        base(0xFF193549,0xFFFFFFFF,0xFF193549,0x22193549);
+        code(0xFFFF9D00,0xFF80FFBB,0xFFFFFFFF,0xFFFF628C,0xFF3AD900,0xFF0088FF,0xFFFFFFFF,0xFFFFE484,0xFF80FFC2);
     }
 
     public static ColorScheme get(String id) {

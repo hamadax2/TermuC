@@ -114,9 +114,16 @@
 	<string name="bkpt_at">Breakpoint at %s</string>
     <string name="no_var">No variables</string>
     <string name="no_frame">No frames</string>
-    <string name="vscode_themes_hint">VS Code-inspired editor themes</string>\n    <string-array name="themes">
+    <string name="vscode_themes_hint">VS Code-inspired editor themes</string>
+    <string name="welcome_title">Ready to code</string>
+    <string name="welcome_subtitle">Open a file or create a new one to start editing.</string>
+    <string name="open_file">Open File</string>
+    <string name="new_file">New File</string>
+    <string-array name="themes">
         <item>Dark+ (VS Code)</item>
         <item>Light+ (VS Code)</item>
+        <item>Dark High Contrast (VS Code)</item>
+        <item>Light High Contrast (VS Code)</item>
         <item>Monokai</item>
         <item>Dracula</item>
         <item>One Dark Pro</item>
@@ -127,11 +134,17 @@
         <item>GitHub Light</item>
         <item>Tokyo Night</item>
         <item>Abyss</item>
-        <item>High Contrast Dark</item>
+        <item>Quiet Light</item>
+        <item>Kimbie Dark</item>
+        <item>Red</item>
+        <item>Tomorrow Night Blue</item>
+        <item>Cobalt2</item>
     </string-array>
     <string-array name="v_themes">
         <item>dark-plus</item>
         <item>light-plus</item>
+        <item>hc-dark</item>
+        <item>hc-light</item>
         <item>monokai</item>
         <item>dracula</item>
         <item>one-dark</item>
@@ -142,10 +155,15 @@
         <item>github-light</item>
         <item>tokyo-night</item>
         <item>abyss</item>
-        <item>hc-dark</item>
+        <item>quiet-light</item>
+        <item>kimbie-dark</item>
+        <item>red</item>
+        <item>tomorrow-night-blue</item>
+        <item>cobalt2</item>
     </string-array>
     <string name="def_thm">dark-plus</string>
-	<string-array name="runs">
+    <string name="theme_summary">Editor color scheme</string>
+    <string-array name="runs">
 		<item>@string/run</item>
 		<item>@string/debug</item>
 	</string-array>
@@ -160,7 +178,10 @@
 		<item>n</item>
 	</string-array>
     <string-array name="fonts">
-        <item>JetBrains-style Mono</item>
+        <item>JetBrains Mono</item>
+        <item>Cascadia Code</item>
+        <item>Source Code Pro</item>
+        <item>Roboto Mono</item>
         <item>DejaVu Sans Mono</item>
         <item>Inter Display</item>
         <item>Liberation Mono</item>
@@ -171,6 +192,9 @@
     </string-array>
     <string-array name="v_fonts">
         <item>jb</item>
+        <item>cascadia</item>
+        <item>source</item>
+        <item>roboto</item>
         <item>dv</item>
         <item>inter</item>
         <item>lib</item>
@@ -179,7 +203,7 @@
         <item>s</item>
         <item>c</item>
     </string-array>
-	<string-array name="sizes">
+    <string-array name="sizes">
 		<item>8</item>
 		<item>9</item>
 		<item>10</item>

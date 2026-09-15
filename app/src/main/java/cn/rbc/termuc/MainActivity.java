@@ -40,7 +40,8 @@ HeaderAdapter.OnChangedListener, View.OnLayoutChangeListener {
     private View showlist, transV;
     private HorizontalScrollView keys, tabScroller;
     private File pwd, prj, root;
-    private TextView pwdpth, msgEmpty, transTxV;
+    private TextView pwdpth, transTxV;
+    private View msgEmpty;
     private LinearLayout subc;
     private TextEditor codeEditor;
     private LinearLayout tabs;
@@ -135,6 +136,22 @@ HeaderAdapter.OnChangedListener, View.OnLayoutChangeListener {
         tabs.setTag(0);
         panel = new DebugPanel(this);
 		getWindow().getDecorView().getViewTreeObserver().addOnGlobalLayoutListener(this);
+        // Quick actions are intentionally available before any file is opened.
+        View quickNew = findViewById(R.id.quick_new);
+        View quickSave = findViewById(R.id.quick_save);
+        View quickUndo = findViewById(R.id.quick_undo);
+        View quickRedo = findViewById(R.id.quick_redo);
+        View quickSettings = findViewById(R.id.quick_settings);
+        View emptyOpen = findViewById(R.id.empty_open);
+        View emptyNew = findViewById(R.id.empty_new);
+        quickNew.setOnClickListener(v -> createFile(v));
+        quickSave.setOnClickListener(v -> { if (lastFrag != null) { try { lastFrag.save(); toast(getText(R.string.saved)); } catch (IOException e) { toast(getText(R.string.open_failed)); } } else toast(getText(R.string.no_open_files)); });
+        quickUndo.setOnClickListener(v -> { if (codeEditor != null) codeEditor.undo(); });
+        quickRedo.setOnClickListener(v -> { if (codeEditor != null) codeEditor.redo(); });
+        quickSettings.setOnClickListener(v -> { Intent it = new Intent(this, SettingsActivity.class); startActivityForResult(it, SETTING); });
+        emptyOpen.setOnClickListener(this::showList);
+        emptyNew.setOnClickListener(this::createFile);
+        setQuickEditingActions(false);
 		mSearchAction = new SearchAction(this);
 		final int sdk = android.os.Build.VERSION.SDK_INT;
 		String[] s = null;
@@ -831,7 +848,7 @@ HeaderAdapter.OnChangedListener, View.OnLayoutChangeListener {
                         ed.setPureMode(Application.pure_mode);
                         ed.setColorScheme(ColorSchemeVSCode.get(Application.theme));
                         ed.setFormatter(s && f.hasLsp() ? f : null);
-						ed.setAutoComplete((!s || !f.hasLsp()) && !"n".equals(Application.completion));
+						ed.setAutoComplete(!f.isText() && !"n".equals(Application.completion));
 						ed.setTypeface(tf);
 						ed.setWordWrap(Application.wordwrap);
 						ed.setShowNonPrinting(Application.whitespace);
@@ -971,8 +988,16 @@ HeaderAdapter.OnChangedListener, View.OnLayoutChangeListener {
     }
 
     public void showList(View view) {
-		View v = subc;
-        v.setVisibility(View.VISIBLE ^ View.GONE ^ v.getVisibility());
+        if (subc.getVisibility() == View.VISIBLE) {
+            subc.setVisibility(View.GONE);
+            return;
+        }
+        ((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE))
+                .hideSoftInputFromWindow(view.getWindowToken(), 0);
+        subc.setVisibility(View.VISIBLE);
+        subc.bringToFront();
+        subc.requestFocus();
+        refresh();
     }
 
 	public void setEditor(TextEditor edit) {
@@ -1001,6 +1026,33 @@ HeaderAdapter.OnChangedListener, View.OnLayoutChangeListener {
         return new TextEditor(this, editAttr);
     }
 
+    private void updateStatusForFile(String path) {
+        TextView language = findViewById(R.id.status_language);
+        if (language == null) return;
+        if (path == null) {
+            language.setText("Ready");
+            return;
+        }
+        String name = path.toLowerCase(Locale.US);
+        String lang = "Text";
+        if (name.endsWith(".cpp") || name.endsWith(".cc") || name.endsWith(".cxx") || name.endsWith(".hpp") || name.endsWith(".hh")) lang = "C++";
+        else if (name.endsWith(".c")) lang = "C";
+        else if (name.endsWith(".java")) lang = "Java";
+        else if (name.endsWith(".js") || name.endsWith(".mjs")) lang = "JavaScript";
+        else if (name.endsWith(".json")) lang = "JSON";
+        else if (name.endsWith(".xml")) lang = "XML";
+        else if (name.endsWith(".py")) lang = "Python";
+        language.setText(lang);
+    }
+
+    private void setQuickEditingActions(boolean enabled) {
+        int[] ids = {R.id.quick_save, R.id.quick_undo, R.id.quick_redo};
+        for (int id : ids) {
+            View v = findViewById(id);
+            if (v != null) v.setEnabled(enabled);
+        }
+    }
+
     @Override
     public void onAdd(String item) {
         if (hda.getCount() == 1) {
@@ -1018,6 +1070,8 @@ HeaderAdapter.OnChangedListener, View.OnLayoutChangeListener {
                 ab.setDisplayShowTitleEnabled(false);
             }
             msgEmpty.setVisibility(View.GONE);
+            updateStatusForFile(item);
+            setQuickEditingActions(true);
             showFullMenu(true);
         }
         if (!Application.navtab) return;
@@ -1086,6 +1140,8 @@ HeaderAdapter.OnChangedListener, View.OnLayoutChangeListener {
             ab.setDisplayShowTitleEnabled(true);
         }
         msgEmpty.setVisibility(View.VISIBLE);
+        updateStatusForFile(null);
+        setQuickEditingActions(false);
         showFullMenu(false);
     }
 

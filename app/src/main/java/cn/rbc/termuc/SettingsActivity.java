@@ -26,7 +26,11 @@ implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickLi
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		addPreferencesFromResource(R.xml.settings);
 
-		mThemePref = (ListPreference)findPreference(Application.KEY_THEME);
+        mThemePref = (ListPreference)findPreference(Application.KEY_THEME);
+        if (mThemePref.findIndexOfValue(Application.theme) < 0)
+            mThemePref.setValue("dark-plus");
+        mThemePref.setSummary(mThemePref.getEntry());
+        mThemePref.setOnPreferenceChangeListener(this);
         mPureModePref = (CheckBoxPreference)findPreference(Application.KEY_PUREMODE);
         mNavTabPref = (CheckBoxPreference)findPreference(Application.KEY_NAVTAB);
 		mFontPref = (ListPreference)findPreference(Application.KEY_FONT);
@@ -84,13 +88,18 @@ implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickLi
 
 	@Override
 	public boolean onPreferenceChange(Preference p1, Object p2) {
-		if (p1.compareTo(mEngine)==0) {
+		if (p1.compareTo(mThemePref)==0) {
+            int idx = mThemePref.findIndexOfValue((String)p2);
+            if (idx >= 0) mThemePref.setSummary(mThemePref.getEntries()[idx]);
+            return true;
+        } else if (p1.compareTo(mEngine)==0) {
 			boolean enable = "s".equals(p2);
 			mHost.setEnabled(enable);
 			mPort.setEnabled(enable);
 		} else if (p1.compareTo(mFontPref)==0) {
-			if ("c".equals(p2)) {
-				Intent it = new Intent(this, FileActivity.class);
+            if ("c".equals(p2)) {
+                tpFont = "c";
+                Intent it = new Intent(this, FileActivity.class);
 				it.putExtra(FileActivity.FN,
 					getPreferenceManager().getSharedPreferences().getString(Application.KEY_MYFONT, null));
 				startActivityForResult(it, 0);
@@ -105,31 +114,31 @@ implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickLi
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (requestCode==0 && resultCode==RESULT_OK) {
-			SharedPreferences.Editor edt = getPreferenceManager().getSharedPreferences().edit();
-			edt.putString(Application.KEY_MYFONT, tpFont = data.getStringExtra(FileActivity.FN));
-			edt.commit();
-			mFontPref.setValue("c");
+            SharedPreferences.Editor edt = getPreferenceManager().getSharedPreferences().edit();
+            edt.putString(Application.KEY_MYFONT, data.getStringExtra(FileActivity.FN));
+            edt.commit();
+            tpFont = "c";
+            mFontPref.setValue("c");
 		}
 	}
 
-	@Override
-	public void onBackPressed() {
-		setResult(!mTheme.equals(mThemePref.getValue())
-				  ? RESULT_FIRST_USER : 
-				  (mPure == mPureModePref.isChecked()
-                  && mNav == mNavTabPref.isChecked()
-                  && mFont == tpFont
-				  && mWrap == mWordWrapPref.isChecked()
-				  && mSpace == mWhitespacePref.isChecked()
-				  && mUseSpace == mUseSpacePref.isChecked()
-				  && mTabSize == Integer.parseInt(mTabSizePref.getValue())
-                  && mSuggestion == mSuggestionPref.isChecked()
-                  && mAutoCaps == mAutoCapsPref.isChecked()
-                  && mSyms.equals(mSymsPref.getText())
-				  && mComp.equals(mEngine.getValue()))
-				  ? RESULT_CANCELED : RESULT_OK);
-		super.onBackPressed();
-	}
+    @Override
+    public void onBackPressed() {
+        boolean changed = !mTheme.equals(mThemePref.getValue())
+                || mPure != mPureModePref.isChecked()
+                || mNav != mNavTabPref.isChecked()
+                || !mFont.equals(tpFont)
+                || mWrap != mWordWrapPref.isChecked()
+                || mSpace != mWhitespacePref.isChecked()
+                || mUseSpace != mUseSpacePref.isChecked()
+                || mTabSize != Integer.parseInt(mTabSizePref.getValue())
+                || mSuggestion != mSuggestionPref.isChecked()
+                || mAutoCaps != mAutoCapsPref.isChecked()
+                || !mSyms.equals(mSymsPref.getText())
+                || !mComp.equals(mEngine.getValue());
+        setResult(changed ? RESULT_OK : RESULT_CANCELED);
+        super.onBackPressed();
+    }
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {

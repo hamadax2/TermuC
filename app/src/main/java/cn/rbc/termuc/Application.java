@@ -83,12 +83,14 @@ public class Application extends android.app.Application {
     private void initConfs() {
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         theme = sp.getString(KEY_THEME, getResources().getString(R.string.def_thm));
+        if ("d".equals(theme)) theme = "dark-plus";
+        else if ("l".equals(theme)) theme = "light-plus";
+        else if ("s".equals(theme)) theme = "dark-plus";
         pure_mode = sp.getBoolean(KEY_PUREMODE, false);
         navtab = sp.getBoolean(KEY_NAVTAB, false);
-		String f = sp.getString(KEY_FONT, "jb");
-		if ("c".equals(f))
-			f = sp.getString(KEY_MYFONT, "");
-		font = f;
+        // Keep the preference value ("c" for custom) separate from the file path.
+        // This makes the Custom font option persist correctly.
+        font = sp.getString(KEY_FONT, "jb");
 		textsize = Integer.parseInt(sp.getString(KEY_TEXTSIZE, "14"));
         wordwrap = sp.getBoolean(KEY_WORDWRAP, true);
 		whitespace = sp.getBoolean(KEY_WHITESPACE, false);
@@ -115,10 +117,11 @@ public class Application extends android.app.Application {
             if (customTypeface != null) return customTypeface;
 
             String asset = null;
-            // "JetBrains-style" intentionally uses a bundled developer font
-            // with similar monospace proportions. Real JetBrains Mono can still
-            // be selected through Custom font file.
-            if ("jb".equals(font) || "dv".equals(font)) asset = "fonts/DejaVuSansMono.ttf";
+            if ("jb".equals(font)) asset = "fonts/JetBrainsMono-Regular.otf";
+            else if ("cascadia".equals(font)) asset = "fonts/CascadiaCode-Regular.otf";
+            else if ("source".equals(font)) asset = "fonts/SourceCodePro-Regular.otf";
+            else if ("roboto".equals(font)) asset = "fonts/RobotoMono-Regular.otf";
+            else if ("dv".equals(font)) asset = "fonts/DejaVuSansMono.ttf";
             else if ("inter".equals(font)) asset = "fonts/InterDisplay-Regular.otf";
             else if ("lib".equals(font)) asset = "fonts/LiberationMono-Regular.ttf";
             else if ("noto".equals(font)) asset = "fonts/NotoSansMono-Regular.ttf";

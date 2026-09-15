@@ -1,38 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground">
+
+    <!-- VS Code-like quick actions. These remain available even when no file is open. -->
+    <LinearLayout
+        android:id="@+id/quickbar"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:background="?android:attr/colorBackground"
+        android:elevation="2dp">
+
+        <ImageButton
+            android:id="@id/show_list"
+            style="@style/actionButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:src="@drawable/ic_folder_24"
+            android:contentDescription="@string/browse_files"
+            android:tooltipText="@string/browse_files"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:onClick="showList" />
+
+        <ImageButton
+            android:id="@+id/quick_new"
+            style="@style/actionButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:src="@drawable/ic_file_24"
+            android:contentDescription="@string/new_"
+            android:tooltipText="@string/new_"
+            android:background="?android:attr/selectableItemBackgroundBorderless" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:alpha="0.18"
+            android:background="?android:attr/textColorPrimary" />
+
+        <ImageButton
+            android:id="@+id/quick_save"
+            style="@style/actionButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:src="@drawable/ic_save_24"
+            android:contentDescription="@string/save"
+            android:tooltipText="@string/save"
+            android:background="?android:attr/selectableItemBackgroundBorderless" />
+
+        <ImageButton
+            android:id="@+id/quick_undo"
+            style="@style/actionButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:src="@drawable/ic_undo_24"
+            android:contentDescription="@string/undo"
+            android:tooltipText="@string/undo"
+            android:background="?android:attr/selectableItemBackgroundBorderless" />
+
+        <ImageButton
+            android:id="@+id/quick_redo"
+            style="@style/actionButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:src="@drawable/ic_redo_24"
+            android:contentDescription="@string/redo"
+            android:tooltipText="@string/redo"
+            android:background="?android:attr/selectableItemBackgroundBorderless" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/quick_settings"
+            style="@style/actionButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:src="@android:drawable/ic_menu_preferences"
+            android:contentDescription="@string/settings"
+            android:tooltipText="@string/settings"
+            android:background="?android:attr/selectableItemBackgroundBorderless" />
+    </LinearLayout>
+
+    <include layout="@layout/tabs" android:visibility="gone" />
 
     <include
-            layout="@layout/key_panel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/subcontainer"
-            android:layout_alignWithParentIfMissing="true"/>
+        layout="@layout/editfrag"
+        android:layout_below="@id/quickbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/statusbar" />
 
-    <include layout="@layout/tabs" android:visibility="gone"/>
-    <include
-            layout="@layout/editfrag"
-            android:layout_below="@id/tabScroller"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/statusbar"/>
-
-    <ImageButton
-        android:src="@android:drawable/ic_menu_more"
-        android:tooltipText="@string/browse_files"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
+    <!-- Empty editor state: makes the first launch useful instead of showing a blank screen. -->
+    <LinearLayout
+        android:id="@id/msg_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/quickbar"
         android:layout_above="@id/statusbar"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="2dp"
-        android:id="@id/show_list"
-        android:onClick="showList"/>
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp">
 
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/ic_code_24"
+            android:alpha="0.85"
+            android:contentDescription="@string/app_name" />
 
-    <!-- VS Code inspired compact status bar -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="@string/welcome_title"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="?android:attr/textColorPrimary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:text="@string/welcome_subtitle"
+            android:textSize="14sp"
+            android:textColor="?android:attr/textColorSecondary" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/empty_open"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/open_file"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/empty_new"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/new_file"
+                android:textAllCaps="false" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@id/subcontainer"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentBottom="true"
+        android:layout_above="@id/statusbar"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:elevation="8dp"
+        android:background="?android:attr/colorBackground">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="?android:attr/textColorLink" />
+
+        <ListView
+            android:id="@id/file_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fastScrollEnabled="true" />
+    </LinearLayout>
+
     <LinearLayout
         android:id="@id/statusbar"
         android:layout_width="match_parent"
@@ -40,8 +192,8 @@
         android:layout_above="@id/keys"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:background="#007ACC">
 
         <TextView
@@ -52,7 +204,7 @@
             android:gravity="center_vertical"
             android:text="C++"
             android:textColor="#FFFFFF"
-            android:textSize="11sp"/>
+            android:textSize="11sp" />
 
         <TextView
             android:id="@id/status_encoding"
@@ -62,7 +214,7 @@
             android:text="UTF-8"
             android:textColor="#FFFFFF"
             android:textSize="11sp"
-            android:paddingLeft="12dp"/>
+            android:paddingStart="12dp" />
 
         <TextView
             android:id="@id/status_indent"
@@ -72,30 +224,13 @@
             android:text="Spaces: 4"
             android:textColor="#FFFFFF"
             android:textSize="11sp"
-            android:paddingLeft="12dp"/>
+            android:paddingStart="12dp" />
     </LinearLayout>
 
-    <LinearLayout
-            android:id="@id/subcontainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_alignParentBottom="true"
-            android:visibility="gone"
-            android:background="?android:attr/colorBackground">
-
-        <View
-                android:background="?android:attr/textColorLink"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"/>
-
-        <ListView
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:fastScrollEnabled="true"
-                android:id="@id/file_list"/>
-
-    </LinearLayout>
+    <include
+        layout="@layout/key_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
-
