@@ -1,13 +1,9 @@
 pluginManagement {
-    repositories {
-        // For china developers
-        /*maven { url 'https://maven.aliyun.com/repository/google' }
-        maven { url 'https://maven.aliyun.com/repository/central' }*/
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
+    repositories { google(); mavenCentral(); gradlePluginPortal() }
 }
-rootProject.name='TermuC'
-include ':app' //, ':lib-n-ide'
-include ':codeeditor'
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories { google(); mavenCentral() }
+}
+rootProject.name = 'TermuCModern'
+include ':app'
