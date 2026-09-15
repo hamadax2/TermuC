@@ -1,0 +1,190 @@
+<resources>
+    <string name="app_name">TermuC</string>
+    <string name="settings">Settings</string>
+    <string name="global">Global</string>
+    <string name="theme">Theme</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="sys">System</string>
+    <string name="pure_mode">Pure color</string>
+    <string name="navtab">Tab navigation mode</string>
+    <string name="editor">Editor</string>
+	<string name="font">Font</string>
+	<string name="sans">Sans Serif</string>
+	<string name="serif">Serif</string>
+	<string name="monospace">Monospace</string>
+	<string name="custom">Custom</string>
+    <string name="wordwrap">Word wrap</string>
+    <string name="whitespace">Show whitespaces</string>
+	<string name="usespace">Indent with spaces</string>
+	<string name="tabsize">Tab size (\\t)</string>
+    <string name="keyboard_suggestion">Allow keyboard suggestion</string>
+    <string name="auto_caps">Capitals automatically</string>
+    <string name="custom_sym">Custom symbol panel</string>
+    <string name="compiler">Compiler</string>
+    <string name="cflags">Compiler flags</string>
+	<string name="run_">Run...</string>
+	<string name="build">Build</string>
+	<string name="compile">Compile</string>
+    <string name="run">Run</string>
+	<string name="debug">Debug</string>
+    <string name="undo">Undo</string>
+    <string name="redo">Redo</string>
+    <string name="save">Save</string>
+    <string name="find">Find</string>
+    <string name="close">Close</string>
+	<string name="prj_">Project...</string>
+	<string name="prj_attr">Configuration</string>
+	<string name="prj_close">Close Project</string>
+	<string name="no_open_files">No Open Files</string>
+	<string name="analysis">Code Analysis</string>
+	<string name="completion">Auto completion</string>
+	<string name="engine">Engine</string>
+	<string name="lang_serv">Language Server</string>
+	<string name="builtin">Built-in Snippets</string>
+	<string name="none">None</string>
+	<string name="lsp_host">Server host</string>
+	<string name="lsp_port">Server port</string>
+    <string name="file_modified">The file %s has been modified. Do you want to reload it?</string>
+	<string name="confirm_delete">Do you want to delete %s?</string>
+	<string name="external_storage">External Storage</string>
+	<string name="termux_storage">Termux Storage</string>
+	<string name="not_termux_dir">Not the Termux storage!</string>
+	<string name="new_">New</string>
+	<string name="file">File</string>
+	<string name="folder">Folder</string>
+	<string name="saved">Saved</string>
+	<string name="deleting">Deleting %s</string>
+	<string name="deleted">Deleted</string>
+	<string name="open_failed">Open failed!</string>
+	<string name="browse_files">Browse Files</string>
+	<string name="hint_filename">Name (eg: main.cpp)</string>
+	<string name="prj_name">Project Name</string>
+	<string name="open_prj">Open Project</string>
+	<string name="confirm_open">Open project %s?</string>
+	<string name="new_f">New File/Folder</string>
+	<string name="new_prj">New Project</string>
+    <string name="rename">Rename</string>
+	<string name="rename_failed">Rename failed!</string>
+	<string name="find_">Find...</string>
+	<string name="next">Next</string>
+	<string name="prev">Prev</string>
+	<string name="find_completed">Find Completed</string>
+	<string name="file_browser">File Browser</string>
+	<string name="show_hidden">Show hidden files</string>
+	<string name="textsize">Default font size</string>
+	<string name="check_app">Check &amp; install Termux</string>
+	<string name="installed">Installed</string>
+	<string name="no_install">Not installed</string>
+	<string name="install_app">Install Termux</string>
+	<string name="confirm_install">Termux is not detected. Do you want install it now?</string>
+	<string name="no_remind">Never remind</string>
+	<string name="install_via">Install via</string>
+	<string name="init_termux">Initialize Termux</string>
+	<string name="init_inform">To complete the configuration, please copy the instructions and jump to Termux paste run.\nDuring runtime, it is necessary to manually configure permissions for Termux on all system settings pages.</string>
+	<string name="copy_jump">Copy &amp; jump</string>
+    <string name="init_prefix"
+        >STR=Setup\\ storage;<i
+        />DOA="\"Setup 'draw over apps' (Press ENTER)\"";<i
+        />IBO="\"Setup 'ignore battery optimizations' (Press ENTER)\"";<i
+        />SBP=\"Setup &amp; Background pop-ups permissions\";<i
+        />ALE="\"Setup 'allow-external-apps'\"";<i
+        />ICL=Install\\ Clang;</string>
+	<string name="initialized">Initialized</string>
+	<string name="request_failed">Request permissions failed</string>
+	<string name="parse_failed">Configuration parse failed!</string>
+	<string name="select_font">Select font file</string>
+    <string name="template">Template</string>
+    <string name="with_clangd">With .clangd</string>
+    <string name="with_format">With .clang-format</string>
+    <string name="empty_name">Empty name!</string>
+    <string name="replace">Replace</string>
+    <string name="goto_">Goto</string>
+	<string name="cont">Continue</string>
+	<string name="pause">Pause</string>
+	<string name="skip">Next line</string>
+	<string name="step">Step in</string>
+	<string name="fini">Step out</string>
+    <string name="variable">Variables</string>
+    <string name="frame">Frames</string>
+    <string name="console">Console</string>
+    <string name="bkpt">Breakpoints</string>
+    <string name="message">Message</string>
+    <string name="gdb_cmd">GDB Command</string>
+	<string name="bkpt_at">Breakpoint at %s</string>
+    <string name="no_var">No variables</string>
+    <string name="no_frame">No frames</string>
+    <string-array name="themes">
+        <item>@string/light</item>
+        <item>@string/dark</item>
+    </string-array>
+    <string-array name="v_themes">
+        <item>l</item>
+        <item>d</item>
+    </string-array>
+    <string name="def_thm">l</string>
+	<string-array name="runs">
+		<item>@string/run</item>
+		<item>@string/debug</item>
+	</string-array>
+	<string-array name="engine">
+		<item>@string/lang_serv</item>
+		<item>@string/builtin</item>
+		<item>@string/none</item>
+	</string-array>
+	<string-array name="v_engine">
+		<item>s</item>
+		<item>l</item>
+		<item>n</item>
+	</string-array>
+	<string-array name="fonts">
+		<item>@string/sans</item>
+		<item>@string/serif</item>
+		<item>@string/monospace</item>
+		<item>@string/custom</item>
+	</string-array>
+	<string-array name="v_fonts">
+		<item>n</item>
+		<item>s</item>
+		<item>m</item>
+		<item>c</item>
+	</string-array>
+	<string-array name="sizes">
+		<item>8</item>
+		<item>9</item>
+		<item>10</item>
+		<item>11</item>
+		<item>12</item>
+		<item>13</item>
+		<item>14</item>
+		<item>15</item>
+		<item>16</item>
+		<item>17</item>
+		<item>18</item>
+		<item>19</item>
+		<item>20</item>
+		<item>21</item>
+		<item>22</item>
+		<item>23</item>
+		<item>24</item>
+		<item>25</item>
+		<item>26</item>
+		<item>27</item>
+		<item>28</item>
+		<item>29</item>
+		<item>30</item>
+		<item>31</item>
+		<item>32</item>
+	</string-array>
+	<string-array name="tabsizes">
+		<item>2</item>
+		<item>4</item>
+		<item>8</item>
+	</string-array>
+    <string-array name="templates">
+        <item>Clang</item>
+        <item>Clang++</item>
+        <item>Makefile</item>
+        <item>CMake</item>
+    </string-array>
+</resources>

@@ -1,0 +1,33 @@
+apply plugin: 'com.android.application'
+
+android {
+    namespace 'cn.rbc.termuc'
+    compileSdk 34
+    defaultConfig {
+        applicationId "cn.rbc.termuc"
+        minSdkVersion 21
+        targetSdkVersion 34
+        versionCode 13
+        versionName "0.2.4"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_7
+        targetCompatibility = JavaVersion.VERSION_1_7
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
+
+dependencies {
+	api project(':codeeditor')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
