@@ -1,42 +1,42 @@
 <resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="@android:style/Theme.Holo.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <!--item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item-->
-        <item name="android:actionButtonStyle">@style/actionButton</item>
+    <!-- Lightweight platform theme: no Material dependency required. -->
+    <style name="AppTheme" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:colorAccent">#3F8CFF</item>
+        <item name="android:navigationBarColor">#101318</item>
+        <item name="android:statusBarColor">#101318</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
-    <style name="AppThemeDark" parent="@android:style/Theme.Holo">
-        <item name="android:actionButtonStyle">@style/actionButton</item>
+    <style name="AppThemeDark" parent="android:style/Theme.Material.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:colorAccent">#4D9CFF</item>
+        <item name="android:navigationBarColor">#101318</item>
+        <item name="android:statusBarColor">#101318</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
+    <style name="AppThemeDayNight" parent="AppTheme" />
 
-    <style name="AppThemeDayNight" parent="AppTheme"/>
-
-	<style name="keyBar">
-		<item name="android:textViewStyle">@style/keyText</item>
-	</style>
-
-	<style name="keyText">
-		<item name="android:clickable">true</item>
-		<item name="android:paddingLeft">6dp</item>
-		<item name="android:paddingRight">6dp</item>
-		<item name="android:paddingTop">@dimen/key_padding_vert</item>
-		<item name="android:paddingBottom">@dimen/key_padding_vert</item>
-		<item name="android:typeface">monospace</item>
-		<item name="android:textSize">@dimen/key_size</item>
-		<item name="android:onClick">inputKey</item>
-		<item name="android:background">?android:attr/selectableItemBackground</item>
-	</style>
-
-    <style name="actionButton" parent="@android:style/Widget.Holo.ActionButton">
-        <item name="android:minWidth">48dp</item>
+    <style name="keyBar">
+        <item name="android:textViewStyle">@style/keyText</item>
     </style>
-
+    <style name="keyText">
+        <item name="android:clickable">true</item>
+        <item name="android:paddingLeft">6dp</item>
+        <item name="android:paddingRight">6dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:onClick">inputKey</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+    <style name="actionButton" parent="@android:style/Widget.Material.ActionButton">
+        <item name="android:minWidth">40dp</item>
+    </style>
     <style name="ctrlButton" parent="actionButton">
         <item name="android:paddingStart">0dp</item>
         <item name="android:paddingEnd">0dp</item>
-        <item name="android:textSize">24dp</item>
+        <item name="android:textSize">22sp</item>
     </style>
 </resources>
