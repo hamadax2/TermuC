@@ -1,44 +1,45 @@
-# TermuC Modern
+# TermuC
 
-A lightweight Android C/C++ IDE inspired by VS Code, designed around Termux workflows.
+[![release](https://img.shields.io/github/release/RainbowC0/TermuC.svg)](https://github.com/RainbowC0/TermuC/releases/) [![license](https://img.shields.io/github/license/RainbowC0/TermuC.svg)](https://github.com/RainbowC0/TermuC/blob/master/LICENSE.md) ![CI](https://github.com/RainbowC0/TermuC/actions/workflows/build-debug.yml/badge.svg?event=push)
 
-## This build
-- VS Code-style editor header with a dedicated **Run ▶ button in the top-right**.
-- Explorer drawer, Open/New/Save, Settings and editor tabs.
-- JetBrains Mono and other bundled developer fonts.
-- VS Code-inspired themes.
-- Debounced autocomplete and syntax highlighting to reduce typing lag.
-- C/C++/Python/Java basic completion.
-- Direct Termux Run Command integration using stdin, so the editor does not need broad filesystem permissions just to execute the current buffer.
-- C++ uses `g++ -std=c++17`, C uses `gcc -std=c17`, Java uses `javac/java`, and Python runs through `python3`.
-- Launcher icon included.
+[中文 README](./README_zh.md)
 
-## Termux setup
+TermuC is a simple C/C++ IDE backed on Termux. Based on [MrIkso/CodeEditor](//github.com/MrIkso/CodeEditor)
 
-TermuC uses the official Termux `RUN_COMMAND` service. Termux must allow external commands and Android must grant TermuC the **Run commands in Termux environment** permission.
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+    alt="Get it on F-Droid"
+    height="80">](https://f-droid.org/packages/cn.rbc.termuc)
 
-In Termux:
+## Download
 
-```bash
-mkdir -p ~/.termux
-echo 'allow-external-apps=true' >> ~/.termux/termux.properties
-```
+- Artifacts in [Github Actions](//github.com/RainbowC0/TermuC/actions)
+- [F-Droid](//f-droid.org/packages/cn.rbc.termuc)
 
-Restart Termux after changing the property. Then in Android settings grant TermuC its additional **Run commands in Termux environment** permission.
+## Screenshot
 
-For C/C++ install a compiler if needed:
+![1](fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpg)
 
-```bash
-pkg update
-pkg install clang
-```
+## Technology
 
-TermuC sends the current editor buffer to Termux through stdin. It creates temporary files under `~/.termuc-run`, compiles/runs them, and removes the temporary files when the command exits.
+This app uses `com.termux.RUN_COMMAND` to call Termux to run command, and run `clangd` language server with `netcat`, which builds an insistent I/O channel, offering functions as diagnosing and compilation.
 
-## Build
+## Features
 
-The included GitHub Actions workflow uses Ubuntu 22.04 and JDK 17 and runs:
+- [x] Highlighting
+- [x] Autocompletion
+- [x] Formatting
+- [x] Diagnosing
+- [x] Compile flags
+- [x] Dark mode
+- [x] Debugging
+- [x] Project management
+- [x] Code action
+- [x] Semantic highlighting
+- [x] Goto definition
+- [x] Symbol renaming
+- [ ] Workspace
 
-```bash
-./gradlew --no-daemon assembleDebug
-```
+## Wiki
+
+- [*Setup* (Critical)](//github.com/RainbowC0/TermuC/wiki/Setup)
+- [Usage](//github.com/RainbowC0/TermuC/wiki/Usage)

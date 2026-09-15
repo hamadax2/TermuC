@@ -1,32 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="com.termux.permission.RUN_COMMAND" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools">
+
     <queries>
-        <package android:name="com.termux" />
+        <package android:name="com.termux"/>
     </queries>
+
+	<uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+	<uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+	<uses-permission android:name="com.termux.permission.RUN_COMMAND"/>
+
     <application
-        android:theme="@style/Theme.TermuC"
-        android:label="@string/app_name"
-        android:icon="@drawable/ic_launcher"
-        android:roundIcon="@drawable/ic_launcher"
-        android:allowBackup="true"
-        android:supportsRtl="true"
-        android:resizeableActivity="true">
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".MainActivity" android:exported="true">
+		android:name=".Application"
+		android:allowBackup="true"
+		android:icon="@mipmap/ic_launcher"
+		android:label="@string/app_name"
+		android:roundIcon="@mipmap/ic_launcher_round"
+        android:requestLegacyExternalStorage="true"
+		android:supportsRtl="true"
+		android:resizeableActivity="true"
+		android:theme="@style/AppTheme"
+		android:windowSoftInputMode="adjustResize"
+		android:configChanges="orientation|screenSize|keyboardHidden">
+		<activity
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:mimeType="text/*" />
-                <data android:scheme="content" />
-                <data android:scheme="file" />
-            </intent-filter>
         </activity>
+		<activity
+			android:label="@string/settings"
+			android:name=".SettingsActivity"/>
+		<activity
+			android:icon="@android:drawable/ic_menu_close_clear_cancel"
+			android:name=".FileActivity"/>
     </application>
+
 </manifest>
