@@ -1,5 +1,0 @@
-• Support simple project management
-• Add 'Indent with spaces' & 'Tab size' options
-• Automatically request 'com.termux.permission.RUN_COMMAND' permission
-• Fix bugs when switching auto completion
-• Fix bugs when detecting soft keyboard

@@ -1,5 +1,0 @@
-• Implement textDocument/rename
-• Support Java/Javascript/JSON syntax highlighting
-• Support Tab navigation as an option
-• Support custom symbol bar
-• Fix bugs for word-wrap, line-marks and file-saving
