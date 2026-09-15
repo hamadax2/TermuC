@@ -8,6 +8,8 @@
     <application
         android:theme="@style/Theme.TermuC"
         android:label="@string/app_name"
+        android:icon="@drawable/ic_launcher"
+        android:roundIcon="@drawable/ic_launcher"
         android:allowBackup="true"
         android:supportsRtl="true"
         android:resizeableActivity="true">
