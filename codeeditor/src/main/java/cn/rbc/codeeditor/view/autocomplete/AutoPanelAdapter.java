@@ -154,24 +154,31 @@ public class AutoPanelAdapter extends BaseAdapter  {
                 // 此处实现过滤
                 // 过滤后利用FilterResults将过滤结果返回
                 ArrayList<String> buf = new ArrayList<String>();
-                String input = String.valueOf(constraint).toLowerCase();
+                java.util.HashSet<String> seen = new java.util.HashSet<String>();
+                String input = String.valueOf(constraint).trim().toLowerCase();
 
                 Language lang = Tokenizer.getLanguage();
                 String[] keywords = lang.getUserWord();
                 for (String k : keywords) {
-                    if (k.toLowerCase().startsWith(input))
+                    if (k != null && k.toLowerCase().startsWith(input) && seen.add(k))
                         buf.add(k);
                 }
                 keywords = lang.getKeywords();
                 for (String k : keywords) {
-                    if (k.indexOf(input) == 3)
-                        buf.add(k);
+                    // Language.setKeywords stores the [K] marker. The old
+                    // implementation compared indexOf(input) == 3, which
+                    // failed for short/uppercase prefixes.
+                    String display = k != null && k.startsWith("[K]") ? k.substring(3) : k;
+                    if (display != null && display.toLowerCase().startsWith(input) && seen.add("[K]" + display))
+                        buf.add("[K]" + display);
                 }
                 keywords = lang.getNames();
                 for (String k : keywords) {
-                    if (k.toLowerCase().startsWith(input))
+                    if (k != null && k.toLowerCase().startsWith(input) && seen.add(k))
                         buf.add(k);
                 }
+                if (buf.size() > 80)
+                    buf.subList(80, buf.size()).clear();
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = buf;   // results是上面的过滤结果
                 filterResults.count = buf.size();  // 结果数量

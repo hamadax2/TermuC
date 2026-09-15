@@ -17,19 +17,63 @@
             android:layout_below="@id/tabScroller"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/keys"/>
+            android:layout_above="@id/statusbar"/>
 
-	<ImageButton
-		android:src="@android:drawable/ic_menu_more"
-		android:tooltipText="@string/browse_files"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignParentEnd="true"
-		android:layout_marginBottom="12dp"
-		android:layout_marginEnd="12dp"
-		android:id="@id/show_list"
-		android:onClick="showList"
-		android:layout_alignParentBottom="true"/>
+    <ImageButton
+        android:src="@android:drawable/ic_menu_more"
+        android:tooltipText="@string/browse_files"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/statusbar"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="2dp"
+        android:id="@id/show_list"
+        android:onClick="showList"/>
+
+
+    <!-- VS Code inspired compact status bar -->
+    <LinearLayout
+        android:id="@id/statusbar"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_above="@id/keys"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="#007ACC">
+
+        <TextView
+            android:id="@id/status_language"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="C++"
+            android:textColor="#FFFFFF"
+            android:textSize="11sp"/>
+
+        <TextView
+            android:id="@id/status_encoding"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="UTF-8"
+            android:textColor="#FFFFFF"
+            android:textSize="11sp"
+            android:paddingLeft="12dp"/>
+
+        <TextView
+            android:id="@id/status_indent"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="Spaces: 4"
+            android:textColor="#FFFFFF"
+            android:textSize="11sp"
+            android:paddingLeft="12dp"/>
+    </LinearLayout>
 
     <LinearLayout
             android:id="@id/subcontainer"

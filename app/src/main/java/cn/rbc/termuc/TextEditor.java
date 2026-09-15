@@ -230,7 +230,7 @@ public class TextEditor extends FreeScrollingTextField  {
     @Override
     public boolean onGenericMotionEvent(MotionEvent ev) {
         int pos;
-        if ("s" == Application.completion
+        if ("s".equals(Application.completion)
             && ev.getActionMasked() == MotionEvent.ACTION_BUTTON_PRESS
             && ev.getButtonState() == MotionEvent.BUTTON_PRIMARY
             && (ev.getMetaState() & KeyEvent.META_CTRL_ON) != 0

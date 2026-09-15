@@ -10,7 +10,12 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:paddingEnd="0dp"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:textSize="13sp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:gravity="center_vertical"
+            android:paddingLeft="14dp"
+            android:paddingRight="6dp"/>
     <ImageView
             android:id="@android:id/button1"
             style="?android:attr/buttonBarButtonStyle"

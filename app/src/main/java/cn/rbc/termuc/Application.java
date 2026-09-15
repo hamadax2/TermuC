@@ -85,7 +85,7 @@ public class Application extends android.app.Application {
         theme = sp.getString(KEY_THEME, getResources().getString(R.string.def_thm));
         pure_mode = sp.getBoolean(KEY_PUREMODE, false);
         navtab = sp.getBoolean(KEY_NAVTAB, false);
-		String f = sp.getString(KEY_FONT, "m");
+		String f = sp.getString(KEY_FONT, "jb");
 		if ("c".equals(f))
 			f = sp.getString(KEY_MYFONT, "");
 		font = f;
@@ -107,16 +107,36 @@ public class Application extends android.app.Application {
 			treeUri = Uri.parse(uri);
     }
 
-	static Typeface typeface() {
-		try {
-			return "n".equals(font) ? Typeface.SANS_SERIF
-				: "s".equals(font) ? Typeface.SERIF
-				: "m".equals(font) ? Typeface.MONOSPACE
-				: customTypeface == null ? (customTypeface = Typeface.createFromFile(font)) : customTypeface;
-		} catch (RuntimeException re) {
-			return Typeface.MONOSPACE;
-		}
-	}
+    static Typeface typeface() {
+        try {
+            if ("n".equals(font)) return Typeface.SANS_SERIF;
+            if ("s".equals(font)) return Typeface.SERIF;
+            if ("m".equals(font)) return Typeface.MONOSPACE;
+            if (customTypeface != null) return customTypeface;
+
+            String asset = null;
+            // "JetBrains-style" intentionally uses a bundled developer font
+            // with similar monospace proportions. Real JetBrains Mono can still
+            // be selected through Custom font file.
+            if ("jb".equals(font) || "dv".equals(font)) asset = "fonts/DejaVuSansMono.ttf";
+            else if ("inter".equals(font)) asset = "fonts/InterDisplay-Regular.otf";
+            else if ("lib".equals(font)) asset = "fonts/LiberationMono-Regular.ttf";
+            else if ("noto".equals(font)) asset = "fonts/NotoSansMono-Regular.ttf";
+
+            if (asset != null)
+                return customTypeface = Typeface.createFromAsset(getInstance().getAssets(), asset);
+
+            if ("c".equals(font)) {
+                String path = PreferenceManager.getDefaultSharedPreferences(getInstance())
+                        .getString(KEY_MYFONT, "");
+                if (!path.isEmpty())
+                    return customTypeface = Typeface.createFromFile(path);
+            }
+        } catch (RuntimeException re) {
+            // Fall back gracefully if a custom font was removed.
+        }
+        return Typeface.MONOSPACE;
+    }
 
     static void clearCache() {
         customTypeface = null;

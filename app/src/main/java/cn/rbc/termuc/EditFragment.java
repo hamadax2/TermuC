@@ -94,7 +94,7 @@ TextEditor.OnEditedListener {
             ma.setEditor(editor);
             try {
                 doc = load(editor);
-                if ("s" == Application.completion)
+                if ("s".equals(Application.completion))
                     onOpen(doc);
             } catch (IOException fnf) {
                 fnf.printStackTrace();
@@ -102,9 +102,9 @@ TextEditor.OnEditedListener {
             }
         }
 		if ((type & TYPE_MASK) != TYPE_TXT) {
-			if (hasLsp() && "s" == Application.completion)
+			if (hasLsp() && "s".equals(Application.completion))
 				editor.setFormatter(this);
-			editor.setAutoComplete("l" == Application.completion);
+			editor.setAutoComplete("l".equals(Application.completion));
 		}
 		lastModified = FileHelper.lastModified(fl);
 		return editor;
@@ -265,7 +265,7 @@ TextEditor.OnEditedListener {
 			bd.setPositiveButton(android.R.string.ok, this);
 			bd.setNegativeButton(android.R.string.cancel, null);
 			bd.create().show();
-		} else if ("s" == Application.completion) {// TODO: delay for throttle
+		} else if ("s".equals(Application.completion)) {// TODO: delay for throttle
             Set<String> typs = Application.getInstance().hand.cacheData.get(fl.toString());
             if (typs == null) typs = DEFTYPES;
             Language lang = Tokenizer.getLanguage();
@@ -304,7 +304,7 @@ TextEditor.OnEditedListener {
 		try {
 			Document cs = load(ed);
             ed.mCtrlr.determineSpans();
-            if ("s" == Application.completion && hasLsp()) {
+            if ("s".equals(Application.completion) && hasLsp()) {
 			    Lsp lsp = Application.getInstance().lsp;
                 lsp.didChange(fl, 0, cs.toString());
                 lsp.semanticTokensFull(fl);
@@ -354,7 +354,7 @@ TextEditor.OnEditedListener {
         writer.close();
         lastModified = FileHelper.lastModified(fl);
         getView().setEdited(doc.getMarkedVersion() != doc.getCurrentVersion());
-        if ("s" == Application.completion && hasLsp()) {
+        if ("s".equals(Application.completion) && hasLsp()) {
             Application.getInstance().lsp.didSave(fl);
         }
     }
@@ -374,7 +374,7 @@ TextEditor.OnEditedListener {
         doc.resetUndos();
         doc.clearSpans();
         doc.analyzeWordWrap();
-		if (hasLsp() && "s" == Application.completion) {
+		if (hasLsp() && "s".equals(Application.completion)) {
 			doc.setOnTextChangeListener(this);
         }
 		return doc;
@@ -452,7 +452,7 @@ TextEditor.OnEditedListener {
         List<Command> acts = tActs;
         int flag = acts == null ? 2 : 1;
         p2.findItem(R.id.search).setVisible(start != end).setShowAsActionFlags(flag);
-        p2.findItem(R.id.rename).setVisible(start != end && "s" == Application.completion && hasLsp()).setShowAsActionFlags(flag);
+        p2.findItem(R.id.rename).setVisible(start != end && "s".equals(Application.completion) && hasLsp()).setShowAsActionFlags(flag);
         p2.findItem(ClipboardPanel.ID_SELECTALL).setShowAsActionFlags(flag);
         p2.findItem(ClipboardPanel.ID_CUT).setShowAsActionFlags(flag);
         p2.findItem(ClipboardPanel.ID_COPY).setShowAsActionFlags(flag);
@@ -517,7 +517,7 @@ TextEditor.OnEditedListener {
         TextEditor ed = getView();
         switch (id) {
             case R.id.goto_:
-                if ("s" == Application.completion) {
+                if ("s".equals(Application.completion)) {
                     int pos = ed.getCaretPosition();
                     Document doc = ed.getText();
                     int line = doc.findLineNumber(pos);

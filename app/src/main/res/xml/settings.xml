@@ -28,7 +28,7 @@
 			android:title="@string/font"
 			android:entries="@array/fonts"
 			android:entryValues="@array/v_fonts"
-			android:defaultValue="m"
+			android:defaultValue="jb"
 			/>
 		<ListPreference
 			android:key="fontsize"

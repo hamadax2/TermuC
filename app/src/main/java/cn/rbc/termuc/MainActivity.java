@@ -15,6 +15,7 @@ import android.view.ViewTreeObserver.*;
 import android.view.inputmethod.*;
 import android.widget.*;
 import cn.rbc.codeeditor.lang.*;
+import cn.rbc.codeeditor.view.ColorSchemeVSCode;
 import cn.rbc.codeeditor.util.*;
 import java.io.*;
 import java.lang.reflect.*;
@@ -400,7 +401,29 @@ HeaderAdapter.OnChangedListener, View.OnLayoutChangeListener {
 			appMenu.findItem(R.id.run).setVisible(exec);
 	}
 
+    private void updateStatusBar(File file) {
+        if (file == null) return;
+        TextView lang = findViewById(R.id.status_language);
+        TextView enc = findViewById(R.id.status_encoding);
+        TextView ind = findViewById(R.id.status_indent);
+        if (lang == null) return;
+        String name = file.getName().toLowerCase(Locale.US);
+        String mode = "Plain Text";
+        if (name.endsWith(".cpp") || name.endsWith(".cc") || name.endsWith(".cxx") || name.endsWith(".hpp")) mode = "C++";
+        else if (name.endsWith(".c") || name.endsWith(".h")) mode = "C";
+        else if (name.endsWith(".java")) mode = "Java";
+        else if (name.endsWith(".js")) mode = "JavaScript";
+        else if (name.endsWith(".json")) mode = "JSON";
+        else if (name.endsWith(".py")) mode = "Python";
+        else if (name.endsWith(".xml")) mode = "XML";
+        lang.setText(mode);
+        enc.setText("UTF-8");
+        ind.setText("Spaces: " + Application.tabsize);
+    }
+
     void selectItem(int pos) {
+        if (pos >= 0 && pos < hda.getCount())
+            updateStatusBar(new File(hda.getItem(pos)));
         if (Application.navtab) {
             View vsel = tabs.getChildAt(pos);
             vsel.setSelected(true);
@@ -450,7 +473,7 @@ HeaderAdapter.OnChangedListener, View.OnLayoutChangeListener {
             Application app = Application.getInstance();
             Lsp lsp;
             EditFragment ef = new EditFragment(f, _i);
-			if ("s" == Application.completion && ef.hasLsp() && (lsp=app.lsp).isEnded()) {
+			if ("s".equals(Application.completion) && ef.hasLsp() && (lsp=app.lsp).isEnded()) {
 				lsp.end();
 				lsp.start(this, app.hand);
 				lsp.initialize(Project.rootPath);
@@ -499,7 +522,7 @@ HeaderAdapter.OnChangedListener, View.OnLayoutChangeListener {
 				lsp.didClose(new File(str));
 			}
 		}
-		boolean s = "s" == Application.completion;
+		boolean s = "s".equals(Application.completion);
 		if (s && lsp.isEnded()) {
 			lsp.start(this, Application.getInstance().hand);
 			lsp.initialize(Project.rootPath);
@@ -788,7 +811,7 @@ HeaderAdapter.OnChangedListener, View.OnLayoutChangeListener {
 		switch (requestCode) {
 			case SETTING:
 				if (resultCode == RESULT_OK) {
-					boolean s = "s" == Application.completion;
+					boolean s = "s".equals(Application.completion);
                     Application app = Application.getInstance();
                     Lsp lsp = app.lsp;
 					boolean chg = s==lsp.isEnded();
@@ -806,8 +829,9 @@ HeaderAdapter.OnChangedListener, View.OnLayoutChangeListener {
 						EditFragment f = (EditFragment)fm.findFragmentByTag(hda.getItem(i));
 						TextEditor ed = f.getView();
                         ed.setPureMode(Application.pure_mode);
-						ed.setFormatter(s ? f : null);
-						ed.setAutoComplete("l" == Application.completion);
+                        ed.setColorScheme(ColorSchemeVSCode.get(Application.theme));
+                        ed.setFormatter(s && f.hasLsp() ? f : null);
+						ed.setAutoComplete((!s || !f.hasLsp()) && !"n".equals(Application.completion));
 						ed.setTypeface(tf);
 						ed.setWordWrap(Application.wordwrap);
 						ed.setShowNonPrinting(Application.whitespace);

@@ -541,7 +541,8 @@ DialogInterface.OnDismissListener, Runnable {
 		char ch = text.charAt(0);
         mScroller.abortAnimation();
 		if (isAutoCompeted) {
-			if (cursorPosition - curr > 0 && Character.isLetterOrDigit(ch))
+			if (cursorPosition - curr > 0
+                    && (Character.isLetterOrDigit(ch) || ch == '.'))
 			//是否开启代码提示
 			// log("subSequence:"+hDoc.subSequence(curr, caretPosition - curr));
 			// if (isAutoCompeted) {

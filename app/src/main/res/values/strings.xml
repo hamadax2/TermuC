@@ -114,15 +114,37 @@
 	<string name="bkpt_at">Breakpoint at %s</string>
     <string name="no_var">No variables</string>
     <string name="no_frame">No frames</string>
-    <string-array name="themes">
-        <item>@string/light</item>
-        <item>@string/dark</item>
+    <string name="vscode_themes_hint">VS Code-inspired editor themes</string>\n    <string-array name="themes">
+        <item>Dark+ (VS Code)</item>
+        <item>Light+ (VS Code)</item>
+        <item>Monokai</item>
+        <item>Dracula</item>
+        <item>One Dark Pro</item>
+        <item>Nord</item>
+        <item>Solarized Dark</item>
+        <item>Solarized Light</item>
+        <item>GitHub Dark</item>
+        <item>GitHub Light</item>
+        <item>Tokyo Night</item>
+        <item>Abyss</item>
+        <item>High Contrast Dark</item>
     </string-array>
     <string-array name="v_themes">
-        <item>l</item>
-        <item>d</item>
+        <item>dark-plus</item>
+        <item>light-plus</item>
+        <item>monokai</item>
+        <item>dracula</item>
+        <item>one-dark</item>
+        <item>nord</item>
+        <item>solarized-dark</item>
+        <item>solarized-light</item>
+        <item>github-dark</item>
+        <item>github-light</item>
+        <item>tokyo-night</item>
+        <item>abyss</item>
+        <item>hc-dark</item>
     </string-array>
-    <string name="def_thm">l</string>
+    <string name="def_thm">dark-plus</string>
 	<string-array name="runs">
 		<item>@string/run</item>
 		<item>@string/debug</item>
@@ -137,18 +159,26 @@
 		<item>l</item>
 		<item>n</item>
 	</string-array>
-	<string-array name="fonts">
-		<item>@string/sans</item>
-		<item>@string/serif</item>
-		<item>@string/monospace</item>
-		<item>@string/custom</item>
-	</string-array>
-	<string-array name="v_fonts">
-		<item>n</item>
-		<item>s</item>
-		<item>m</item>
-		<item>c</item>
-	</string-array>
+    <string-array name="fonts">
+        <item>JetBrains-style Mono</item>
+        <item>DejaVu Sans Mono</item>
+        <item>Inter Display</item>
+        <item>Liberation Mono</item>
+        <item>Noto Sans Mono</item>
+        <item>System Sans</item>
+        <item>System Serif</item>
+        <item>Custom font file…</item>
+    </string-array>
+    <string-array name="v_fonts">
+        <item>jb</item>
+        <item>dv</item>
+        <item>inter</item>
+        <item>lib</item>
+        <item>noto</item>
+        <item>n</item>
+        <item>s</item>
+        <item>c</item>
+    </string-array>
 	<string-array name="sizes">
 		<item>8</item>
 		<item>9</item>
