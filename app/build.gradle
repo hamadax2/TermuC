@@ -28,6 +28,16 @@ android {
 }
 
 dependencies {
-	api project(':codeeditor')
+    api project(':codeeditor')
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // AndroidX AppCompat
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+
+    // Activity Result API
+    implementation 'androidx.activity:activity:1.9.3'
+
+    // DrawerLayout
+    implementation 'androidx.drawerlayout:drawerlayout:1.2.0'
 }
