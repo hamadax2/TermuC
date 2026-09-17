@@ -58,7 +58,7 @@ public class CodeEditorView extends FrameLayout {
     public CodeEditorView(Context c) { this(c, null); }
     public CodeEditorView(Context c, AttributeSet a) {
         super(c, a);
-        setBackgroundColor(Color.BLACK);
+        setBackgroundColor(0xFF101317);
         LinearLayout row = new LinearLayout(c);
         row.setOrientation(LinearLayout.HORIZONTAL);
         gutter = new TextView(c);

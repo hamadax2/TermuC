@@ -38,9 +38,11 @@ public class MainActivity extends AppCompatActivity {
         TextView menu=action("☰","Explorer");bar.addView(menu,new LinearLayout.LayoutParams(dp(44),dp(44)));menu.setOnClickListener(v->drawer.openDrawer(Gravity.START));
         title=tv("TermuC",20,Color.WHITE);title.setTypeface(null,1);title.setPadding(dp(12),0,0,0);bar.addView(title,new LinearLayout.LayoutParams(0,-1,1));
         TextView save=action("▣","Save");bar.addView(save,new LinearLayout.LayoutParams(dp(44),dp(44)));save.setOnClickListener(v->saveFile());
-        TextView run=action("▶","Run with Termux");
-        run.setTextSize(18);
+        TextView run=action("▶","Run C++");
+        run.setTextSize(17);
+        run.setText("▶");
         run.setBackground(bg(0xFF16825D,10));
+        run.setPadding(dp(12),0,dp(12),0);
         bar.addView(run,new LinearLayout.LayoutParams(dp(52),dp(44)));
         run.setOnClickListener(v->runTermux());
         TextView more=action("⋮","More");bar.addView(more,new LinearLayout.LayoutParams(dp(44),dp(44)));more.setOnClickListener(v->showMore());

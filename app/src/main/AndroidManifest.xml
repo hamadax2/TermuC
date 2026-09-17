@@ -27,7 +27,7 @@
 		android:windowSoftInputMode="adjustResize"
 		android:configChanges="orientation|screenSize|keyboardHidden">
 		<activity
-            android:name=".MainActivity"
+            android:name="com.termuc.modern.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
